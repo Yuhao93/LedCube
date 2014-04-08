@@ -1,9 +1,10 @@
 #include "ledCube.h"
 
 #include "animation.h"
+#include "clearAnimation.h"
+#include "flags.h"
 #include "liquidAnimation.h"
 #include "waveAnimation.h"
-#include "clearAnimation.h"
 
 #include <cstring>
 #include <iostream>
@@ -13,6 +14,8 @@
 #include <thread>
 #include <unistd.h>
 #include <wiringPi.h>
+
+Flags::Flag* typeFlag = Flags::registerFlag("type", true);
 
 // Mutex to control access to buffer
 std::mutex bufferMutex;
@@ -62,6 +65,8 @@ void animation_function(Animation* animation, int waitTime) {
 // "clear" =>
 //    All leds are set to off and exits immediately
 int main(int argc, char** argv) {
+  Flags::parseFlags(argc, argv);
+
   // Buffer must be cleared
   for (int i = 0; i < 64; i++) {
     buffer[i] = false;
@@ -72,29 +77,25 @@ int main(int argc, char** argv) {
   Animation* animation = NULL;
 
   // Check to see if an animation is specified
-  if (argc == 2) {
-    if (strcmp(argv[1], "wave") == 0) {
-      // 10 led cube frames for each animation frame
-      // => 10 animation frames / second
-      step = 10;
-      animation = new WaveAnimation();
-    } else if (strcmp(argv[1], "liquid") == 0) {
-      animation = new LiquidAnimation();
-    } else if (strcmp(argv[1], "clear") == 0) {
-      animation = new ClearAnimation();
-    }
-  }
-
-  // if none are specified, default to liquid
-  if (animation == NULL) {
+  if (typeFlag->get().compare("wave") == 0) {
+    // 10 led cube frames for each animation frame
+    // => 10 animation frames / second
+    step = 10;
+    animation = new WaveAnimation();
+  } else if (typeFlag->get().compare("liquid") == 0) {
     animation = new LiquidAnimation();
+  } else if (typeFlag->get().compare("clear") == 0) {
+    animation = new ClearAnimation();
+  } else {
+    printf("Unkown type \"%s\"\n", typeFlag->get().c_str());
+    return 0;
   }
 
   // setup the IO ports
   ledCubeIOSetup();
 
   // Exit immediately if just clearing the led cube
-  if (argc == 2 && strcmp(argv[1], "clear") == 0) {
+  if (typeFlag->get().compare("clear") == 0) {
     animation->animate(buffer);
     ledCubeDisplay(buffer);
     return 0;
