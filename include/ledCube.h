@@ -1,6 +1,8 @@
 #ifndef LED_CUBE_H
 #define LED_CUBE_H
 
+#define TIMESTEP 2500
+
 // Inteface for displaying a pattern on the 4x4x4 LED cube
 // Some things to note:
 //   This uses the Raspberry Pi R2 to communicate with the cube. The rPi has 17
@@ -31,8 +33,6 @@
 //   use 2 pins that feed into a 2-line to 4-line decoder to control which
 //   layer we are displaying.
 //   All in all, we are using 2 + 8 + 2 = 12 pins to control our LED cube
-
-
 
 // Intialize the IO pins to communicate with the LED cube
 void ledCubeIOSetup();

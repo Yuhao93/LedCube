@@ -1,6 +1,6 @@
 INCLUDE=-Iinclude
 SRCS=src/*.cpp
-PARAMS=-std=c++0x -lwiringPi -o bin/ledcube
+PARAMS=-std=c++0x -lwiringPi -lpthread -o bin/ledcube
 
 all: cpp
 dir: ; mkdir -p bin

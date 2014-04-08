@@ -2,10 +2,6 @@
 #include <wiringPi.h>
 #include <unistd.h> 
 
-// How long (in micro seconds) to wait after each layer before going onto
-// the net layer (1/4 of the total time for each frame)
-#define TIMESTEP 2500
-
 // ON and OFF values
 #define ON true
 #define OFF false
