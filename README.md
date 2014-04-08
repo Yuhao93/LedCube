@@ -16,6 +16,7 @@ The LED Cube is programmed to update its pattern every 10 milliseconds (100fps).
 Hardware
 ========
 The Raspberry Pi connects to 2 hardware components. To connect to them, the Raspberry Pi has 17 GPIO pins that we can use:
+
 ![Raspberry Pi GPIO](http://elinux.org/images/2/2a/GPIOs.png)
 
 Accelerometer
