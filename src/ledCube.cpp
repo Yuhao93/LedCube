@@ -24,8 +24,8 @@
 bool subData[8] { false, false, false, false, false, false, false, false };
 
 // IO pin numbers used
-int memSelectPins[2] { 14, 13 };
-int layerSelectPins[2] { 12, 3 };
+int memSelectPins[2] { 12, 3 };
+int layerSelectPins[2] { 14, 13 };
 int dataPins[8] { 15, 16, 1, 4, 5, 6, 10, 11 };
 
 // Get the 8 bit data chunk to write 
