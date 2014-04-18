@@ -43,7 +43,7 @@ public:
           // Larger values means it's "higher up" and lower values means it's
           // "farther down" Store this information in a tuple to be sorted
           // later
-          float factor = z * arr[0] + x * arr[1] + y * arr[2];
+          float factor = -y * arr[0] + z * arr[1] + -x * arr[2];
           buffer[ind] = std::pair<int, float>(ind, factor);
         }
       }

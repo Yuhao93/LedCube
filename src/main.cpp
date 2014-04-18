@@ -4,6 +4,7 @@
 #include "clearAnimation.h"
 #include "flags.h"
 #include "liquidAnimation.h"
+#include "rainAnimation.h"
 #include "waveAnimation.h"
 
 #include <cstring>
@@ -84,6 +85,8 @@ int main(int argc, char** argv) {
     animation = new WaveAnimation();
   } else if (typeFlag->get().compare("liquid") == 0) {
     animation = new LiquidAnimation();
+  } else if (typeFlag->get().compare("rain") == 0) {
+    animation = new RainAnimation();
   } else if (typeFlag->get().compare("clear") == 0) {
     animation = new ClearAnimation();
   } else {
